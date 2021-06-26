@@ -1,18 +1,16 @@
+import { BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Router from "./router/Router";
 
 function App() {
   return (
-    <div className="container">
-      <Navbar />
-      <div className="card">
-        <div className="card-header">
-          <h4>Welcome to React App.</h4>
-        </div>
-        <div className="card-body">
-          Home page.
-        </div>
+    <BrowserRouter>
+      <div className="container">
+        <Navbar />
+
+        <Router />
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
