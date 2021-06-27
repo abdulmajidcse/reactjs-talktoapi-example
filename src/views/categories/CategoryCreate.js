@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import CreateCategory from '../../components/CreateCategory';
 
 function CategoryCreate() {
     return (
@@ -14,7 +15,7 @@ function CategoryCreate() {
             </div>
           </div>
           <div className="card-body">
-            New Category
+            <CreateCategory />
           </div>
         </div>
     );
