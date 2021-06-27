@@ -1,24 +1,23 @@
-import CategoryList from "../../components/CategoryList";
 import { Link } from 'react-router-dom';
 
-function CategoryIndex() {
+function CategoryCreate() {
     return (
         <div className="card">
           <div className="card-header">
             <div className="row">
               <div className="col-md-6">
-                <h4>Catgory List</h4>
+                <h4>New Catgory</h4>
               </div>
               <div className="col-md-6">
-                <Link to="/categories/create" className="btn btn-sm btn-primary">New Category</Link>
+                <Link to="/categories" className="btn btn-sm btn-primary">Category List</Link>
               </div>
             </div>
           </div>
           <div className="card-body">
-            <CategoryList />
+            New Category
           </div>
         </div>
     );
 }
 
-export default CategoryIndex;
+export default CategoryCreate;
