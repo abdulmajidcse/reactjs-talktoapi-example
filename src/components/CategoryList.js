@@ -1,11 +1,13 @@
 import Api from '../config/Api';
 import React from 'react';
+import Spinner from './Spinner';
 
 export default class CategoryList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             categories: [],
+            loading: true,
         };
     }
 
@@ -13,7 +15,8 @@ export default class CategoryList extends React.Component {
         Api.get('/categories')
         .then(response => {
             this.setState({
-                categories: response.data.categories
+                categories: response.data.categories,
+                loading: false,
             });
         })
         .catch(error => {
@@ -22,7 +25,7 @@ export default class CategoryList extends React.Component {
     }
 
     render() {
-        let { categories } = this.state;
+        let { categories, loading } = this.state;
         let categoryColumn = categories.map((category, index) =>
             <tr key={category.id}>
                 <td>{++index}</td>
@@ -37,6 +40,7 @@ export default class CategoryList extends React.Component {
         
         return (
             <div>
+                <Spinner loading={loading} />
                 <table className="table">
                     <thead>
                         <tr>

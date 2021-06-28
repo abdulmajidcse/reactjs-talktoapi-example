@@ -1,5 +1,6 @@
 import Api from '../config/Api';
 import React from 'react';
+import Spinner from './Spinner';
 
 export default class CreateCategory extends React.Component {
     constructor(props) {
@@ -8,7 +9,14 @@ export default class CreateCategory extends React.Component {
             name: '',
             success: '',
             error: '',
+            loading: true,
         };
+    }
+
+    componentDidMount() {
+        this.setState({
+            loading: false,
+        });
     }
 
     setName = (e) => {
@@ -23,6 +31,7 @@ export default class CreateCategory extends React.Component {
         this.setState({
             success: '',
             error: '',
+            loading: true,
         });
 
         let data = new FormData();
@@ -32,19 +41,22 @@ export default class CreateCategory extends React.Component {
         .then(response => {
             this.setState({
                 success: response.data.success,
+                loading: false,
             });
         })
         .catch(error => {
             this.setState({
                 error: error.response.data.name[0],
+                loading: false,
             });
         })
     }
 
     render() {
-        let { name, success, error } = this.state;
+        let { name, success, error, loading } = this.state;
         return (
             <div>
+                <Spinner loading={loading} />
                 {success && <span className="text-success">{success}</span>}
                 <form onSubmit={this.storeCategory}>
                     <div className="mb-3">
