@@ -1,4 +1,4 @@
-import axios from 'axios';
+import Api from '../config/Api';
 import React from 'react';
 
 export default class CategoryList extends React.Component {
@@ -10,7 +10,7 @@ export default class CategoryList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('https://talktoapi.abdulmajid.me/categories')
+        Api.get('/categories')
         .then(response => {
             this.setState({
                 categories: response.data.categories
