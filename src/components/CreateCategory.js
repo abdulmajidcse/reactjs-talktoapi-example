@@ -1,6 +1,7 @@
 import Api from '../config/Api';
 import React from 'react';
 import Spinner from './Spinner';
+import Swal from 'sweetalert2';
 
 export default class CreateCategory extends React.Component {
     constructor(props) {
@@ -43,6 +44,9 @@ export default class CreateCategory extends React.Component {
                 success: response.data.success,
                 loading: false,
             });
+
+            // success sweetalert2 message
+            Swal.fire('', this.state.success, 'success');
         })
         .catch(error => {
             this.setState({
@@ -53,11 +57,10 @@ export default class CreateCategory extends React.Component {
     }
 
     render() {
-        let { name, success, error, loading } = this.state;
+        let { name, error, loading } = this.state;
         return (
             <div>
                 <Spinner loading={loading} />
-                {success && <span className="text-success">{success}</span>}
                 <form onSubmit={this.storeCategory}>
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">Name</label>

@@ -1,4 +1,11 @@
+import { useEffect } from "react";
+import Swal from "sweetalert2";
+
 function Home() {
+  useEffect(() => {
+    Swal.fire('', 'Welcome to home page', 'success');
+  }, []);
+
     return (
         <div className="card">
           <div className="card-header">
