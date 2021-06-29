@@ -11,10 +11,12 @@ export default class CategoryList extends React.Component {
         };
     }
 
+    isSubscribed = true;
+
     componentDidMount() {
         Api.get('/categories')
         .then(response => {
-            this.setState({
+            this.isSubscribed && this.setState({
                 categories: response.data.categories,
                 loading: false,
             });
@@ -22,6 +24,10 @@ export default class CategoryList extends React.Component {
         .catch(error => {
             console.log(error);
         });
+    }
+
+    componentWillUnmount() {
+        this.isSubscribed = false;
     }
 
     render() {
