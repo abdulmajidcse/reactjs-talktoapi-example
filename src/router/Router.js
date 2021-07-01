@@ -5,6 +5,7 @@ import CategoryCreate from '../views/categories/CategoryCreate';
 import ShowCategory from "../views/categories/ShowCategory";
 import EditCategory from "../views/categories/EditCategory";
 import CountChecker from "../views/CountChecker";
+import Calculator from '../views/Calculator';
 
 function Router() {
     return (
@@ -29,6 +30,9 @@ function Router() {
                 </Route>
                 <Route path="/hoc-pattern">
                     <CountChecker />
+                </Route>
+                <Route path="/lifting-state-up">
+                    <Calculator />
                 </Route>
             </Switch>
         </div>
