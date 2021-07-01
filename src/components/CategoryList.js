@@ -2,6 +2,7 @@ import Api from '../config/Api';
 import React from 'react';
 import Spinner from './Spinner';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 export default class CategoryList extends React.Component {
     constructor(props) {
@@ -79,7 +80,7 @@ export default class CategoryList extends React.Component {
                 <td>{++index}</td>
                 <td>{category.name}</td>
                 <td>
-                    <a className="btn btn-sm btn-success" href="/">View</a>
+                    <Link className="btn btn-sm btn-success" to={`/categories/${category.id}`}>View</Link>
                     <a className="btn btn-sm btn-primary" href="/">Edit</a>
                     <button type="button" className="btn btn-sm btn-danger" onClick={() => this.deleteCategory(category.id)}>Delete</button>
                 </td>
