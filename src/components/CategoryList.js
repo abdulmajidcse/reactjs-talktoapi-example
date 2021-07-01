@@ -81,7 +81,7 @@ export default class CategoryList extends React.Component {
                 <td>{category.name}</td>
                 <td>
                     <Link className="btn btn-sm btn-success" to={`/categories/${category.id}`}>View</Link>
-                    <a className="btn btn-sm btn-primary" href="/">Edit</a>
+                    <Link className="btn btn-sm btn-primary" to={`/categories/${category.id}/edit`}>Edit</Link>
                     <button type="button" className="btn btn-sm btn-danger" onClick={() => this.deleteCategory(category.id)}>Delete</button>
                 </td>
             </tr>

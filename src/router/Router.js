@@ -3,6 +3,7 @@ import Home from '../views/Home';
 import CategoryIndex from '../views/categories/CategoryIndex';
 import CategoryCreate from '../views/categories/CategoryCreate';
 import ShowCategory from "../views/categories/ShowCategory";
+import EditCategory from "../views/categories/EditCategory";
 
 function Router() {
     return (
@@ -15,6 +16,9 @@ function Router() {
                 </Route>
                 <Route path="/categories/create">
                     <CategoryCreate />
+                </Route>
+                <Route path="/categories/:id/edit">
+                    <EditCategory />
                 </Route>
                 <Route path="/categories/:id">
                     <ShowCategory />
