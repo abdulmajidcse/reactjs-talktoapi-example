@@ -4,6 +4,7 @@ import CategoryIndex from '../views/categories/CategoryIndex';
 import CategoryCreate from '../views/categories/CategoryCreate';
 import ShowCategory from "../views/categories/ShowCategory";
 import EditCategory from "../views/categories/EditCategory";
+import CountChecker from "../views/CountChecker";
 
 function Router() {
     return (
@@ -25,6 +26,9 @@ function Router() {
                 </Route>
                 <Route path="/categories">
                     <CategoryIndex />
+                </Route>
+                <Route path="/hoc-pattern">
+                    <CountChecker />
                 </Route>
             </Switch>
         </div>

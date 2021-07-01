@@ -15,6 +15,9 @@ function Navbar() {
                             <Link to="/" className="nav-link p-3 active">Home</Link>
                         </li>
                         <li className="nav-item">
+                            <Link to="/hoc-pattern" className="nav-link p-3">HOC Pattern</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to="/categories" className="nav-link p-3">Category</Link>
                         </li>
                     </ul>
