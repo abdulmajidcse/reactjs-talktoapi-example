@@ -2,8 +2,9 @@ import Api from '../config/Api';
 import React from 'react';
 import Spinner from './Spinner';
 import Swal from 'sweetalert2';
+import { withRouter } from 'react-router';
 
-export default class CreateCategory extends React.Component {
+class CreateCategory extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,6 +30,10 @@ export default class CreateCategory extends React.Component {
     storeCategory = (e) => {
         e.preventDefault();
 
+        if(this.state.loading) {
+            return true;
+        }
+
         this.setState({
             success: '',
             error: '',
@@ -44,9 +49,9 @@ export default class CreateCategory extends React.Component {
                 success: response.data.success,
                 loading: false,
             });
-
             // success sweetalert2 message
             Swal.fire('', this.state.success, 'success');
+            this.props.history.push('/categories');
         })
         .catch(error => {
             this.setState({
@@ -73,3 +78,5 @@ export default class CreateCategory extends React.Component {
         );
     }
 }
+
+export default withRouter(CreateCategory);
