@@ -1,6 +1,7 @@
 import Api from '../config/Api';
 import React from 'react';
 import Spinner from './Spinner';
+import Swal from 'sweetalert2';
 
 export default class CategoryList extends React.Component {
     constructor(props) {
@@ -21,13 +22,54 @@ export default class CategoryList extends React.Component {
                 loading: false,
             });
         })
-        .catch(error => {
-            console.log(error);
+        .catch(() => {
+            Swal.fire('', 'There was a problem fetching!', 'error');
         });
     }
 
     componentWillUnmount() {
         this.isSubscribed = false;
+    }
+
+    deleteCategory(categoryId) {
+        Swal.fire({
+            title: '',
+            text: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No!'
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                this.setState({
+                    loading: true
+                });
+        
+                let data = new FormData();
+                data.append('_method', 'delete');
+                Api.post(`/categories/${categoryId}`, data)
+                .then(response => {
+                    let newCategories = this.state.categories.filter(category => category.id !== categoryId);
+                    this.setState({
+                        categories: newCategories
+                    });
+        
+                    this.setState({
+                        loading: false
+                    });
+        
+                    Swal.fire('', response.data.success, 'success');
+                })
+                .catch(() => {
+                    Swal.fire('', 'Something went wrong!', 'error');
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire('', 'Cancelled', 'error');
+            }
+        });
+    
+        
     }
 
     render() {
@@ -39,7 +81,7 @@ export default class CategoryList extends React.Component {
                 <td>
                     <a className="btn btn-sm btn-success" href="/">View</a>
                     <a className="btn btn-sm btn-primary" href="/">Edit</a>
-                    <a className="btn btn-sm btn-danger" href="/">Delete</a>
+                    <button type="button" className="btn btn-sm btn-danger" onClick={() => this.deleteCategory(category.id)}>Delete</button>
                 </td>
             </tr>
         );
