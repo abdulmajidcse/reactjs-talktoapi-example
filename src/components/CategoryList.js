@@ -28,6 +28,13 @@ export default class CategoryList extends React.Component {
         });
     }
 
+    shouldComponentUpdate(nextSate, nextProps) {
+        // a testing purpose not any right purpose
+        console.log(nextSate);
+        console.log(nextProps);
+        return true;
+    }
+
     componentWillUnmount() {
         this.isSubscribed = false;
     }
