@@ -16,7 +16,7 @@ export default function Home() {
         <h4>Welcome to React App.</h4>
       </div>
       <div className="card-body">
-        Home page.
+        Lumen Category Crud with React Functional components.
       </div>
     </div>
   );
