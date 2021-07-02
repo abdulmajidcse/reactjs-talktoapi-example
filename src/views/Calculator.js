@@ -1,21 +1,34 @@
 import { useState } from "react";
-import BoilingVerdict from "../components/LSU/BoilingVerdict";
+import TemperatureInput from "../components/LSU/TemperatureInput";
+import { toCelsius, toFahrenheit, tryConvert } from "../components/LSU/ConvertTemperature";
+import BoilingVerdict from '../components/LSU/BoilingVerdict'
 
 export default function Calculator() {
-    const [temperature, setTemperature] = useState(0);
+    const [scale, setScale] = useState('c');
+    const [temperature, setTemperature] = useState('');
 
-    const handleChange = (e) => {
+    const handleCelsiusChange = (e, scale) => {
+        setScale(scale);
+        setTemperature(e.target.value);
+      }
+    
+    const handleFahrenheitChange = (e, scale) => {
+        setScale(scale);
         setTemperature(e.target.value);
     }
-    
+
+    const celsius = scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
+    const fahrenheit = scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
+
     return (
         <div className="card">
-            <div className="card-header">Enter Temperature in Celsius:</div>
+            <div className="card-header">Lifting State Up</div>
             <div className="card-body">
-                <input className="form-control" type="number" value={temperature} onChange={handleChange} />
+                <TemperatureInput scale="c" temperature={celsius} onTemperatureChange={handleCelsiusChange} />
+                <TemperatureInput scale="f" temperature={fahrenheit} onTemperatureChange={handleFahrenheitChange} />
             </div>
             <div className="card-footer">
-                <BoilingVerdict celsius={parseFloat(temperature)} />
+                <BoilingVerdict celsius={celsius} />
             </div>
         </div>
     ); 
