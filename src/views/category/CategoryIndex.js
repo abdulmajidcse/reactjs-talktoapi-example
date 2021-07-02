@@ -36,7 +36,7 @@ export default function CategoryIndex() {
             <td>{++index}</td>
             <td>{category.name}</td>
             <td>
-                <Link className="btn btn-primary" to="/">View</Link>
+                <Link className="btn btn-primary" to={`/categories/${category.id}`}>View</Link>
             </td>
         </tr>
     );

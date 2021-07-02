@@ -2,6 +2,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from '../views/Home';
 import CategoryIndex from "../views/category/CategoryIndex";
 import CategoryCreate from "../views/category/CategoryCreate";
+import CategoryView from "../views/category/CategoryView";
 
 function Router() {
     return (
@@ -17,6 +18,9 @@ function Router() {
                 </Route>
                 <Route path="/categories/create">
                     <CategoryCreate />
+                </Route>
+                <Route path="/categories/:id">
+                    <CategoryView />
                 </Route>
             </Switch>
         </div>
