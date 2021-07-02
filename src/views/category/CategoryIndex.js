@@ -31,6 +31,39 @@ export default function CategoryIndex() {
         };
     }, []);
 
+    const deleteCategory = id => {
+        Swal.fire({
+            title: '',
+            text: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No!'
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                setLoading(true);
+        
+                let data = new FormData();
+                data.append('_method', 'delete');
+                Api.post(`/categories/${id}`, data)
+                .then(response => {
+                    let newCategories = categories.filter(category => category.id !== id);
+                    setCategories(newCategories);
+        
+                    setLoading(false);
+        
+                    Swal.fire('', response.data.success, 'success');
+                })
+                .catch(() => {
+                    Swal.fire('', 'Something went wrong!', 'error');
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire('', 'Cancelled', 'error');
+            }
+        });
+    }
+
     const categoryList = categories.map((category, index) => 
         <tr key={category.id}>
             <td>{++index}</td>
@@ -38,6 +71,7 @@ export default function CategoryIndex() {
             <td>
                 <Link className="btn btn-primary" to={`/categories/${category.id}`}>View</Link>
                 <Link className="btn btn-success" to={`/categories/${category.id}/edit`}>Edit</Link>
+                <button type="button" className="btn btn-danger" onClick={() => deleteCategory(category.id)}>Delete</button>
             </td>
         </tr>
     );
