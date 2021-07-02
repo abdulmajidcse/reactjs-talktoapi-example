@@ -47,23 +47,23 @@ export default function CategoryIndex() {
             <div className="card-header">
                 <div className="d-flex justify-content-between">
                     <h4>Category List</h4>
-                    <Link className="btn btn-primary" to="/">Home</Link>
+                    <Link className="btn btn-primary" to="/categories/create">New Category</Link>
                 </div>
             </div>
             <div className="card-body">
-            <table className="table table-bordered border-primary">
-                <thead>
-                    <tr>
-                        <th>SL</th>
-                        <th>Name</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+                <table className="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {categoryList}
-                </tbody>
-            </table>
+                    <tbody>
+                        {categoryList}
+                    </tbody>
+                </table>
             </div>
         </div>
     );
