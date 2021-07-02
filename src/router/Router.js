@@ -1,5 +1,6 @@
 import { Switch, Route } from "react-router-dom";
 import Home from '../views/Home';
+import CategoryIndex from "../views/category/CategoryIndex";
 
 function Router() {
     return (
@@ -9,6 +10,9 @@ function Router() {
             <Switch>
                 <Route exact path="/">
                     <Home />
+                </Route>
+                <Route path="/categories">
+                    <CategoryIndex />
                 </Route>
             </Switch>
         </div>
