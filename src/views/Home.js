@@ -5,6 +5,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'Home - React App';
     setLoading(false);
   }, []);
 

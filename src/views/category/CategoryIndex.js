@@ -21,6 +21,7 @@ export default function CategoryIndex() {
     };
 
     useEffect(() => {
+        document.title = 'Category List - React App';
         getCategories();
         
         // component unmount
