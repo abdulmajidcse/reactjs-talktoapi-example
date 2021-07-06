@@ -1,36 +1,18 @@
 import { Link, useParams } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
-import Api from '../../config/Api';
-import Swal from "sweetalert2";
+import useGetCategory from "../../hooks/useGetCategory";
 
 export default function CategoryView() {
-    let [loading, setLoading] = useState(true);
-    let [category, setCategory] = useState({});
     const params = useParams();
-
-    const getCategory = useCallback(() => {
-        Api.get(`categories/${params.id}`)
-        .then(response => {
-            setCategory(response.data.category);
-            setLoading(false);
-        })
-        .catch(() => {
-            Swal.fire('', 'Something went wrong!', 'error');
-            setLoading(false);
-        });
-    }, [params.id]);
+    let [loading, setLoading] = useState(true);
+    let category = useGetCategory(params.id);
 
     useEffect(() => {
-        document.title = 'Category View - React App';
-
-        getCategory();
-
-        return () => {
-            setCategory({});
+        if (Object.keys(category).length > 0) {
             setLoading(false);
-        };
-    }, [getCategory]);
+        }
+    }, [category]);
 
     return (
         <div className="card">

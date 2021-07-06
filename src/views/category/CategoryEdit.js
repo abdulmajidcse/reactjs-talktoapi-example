@@ -1,39 +1,24 @@
 import { Link, useParams, useHistory } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
 import Api from '../../config/Api';
 import Swal from "sweetalert2";
+import useGetCategory from "../../hooks/useGetCategory";
 
 export default function CategoryEdit() {
-    let [loading, setLoading] = useState(true);
     let [name, setName] = useState('');
     let [error, setError] = useState('');
     const params = useParams();
     const history = useHistory();
-
-    const getCategory = useCallback(() => {
-        Api.get(`categories/${params.id}`)
-        .then(response => {
-            setName(response.data.category.name);
-            setLoading(false);
-        })
-        .catch(() => {
-            Swal.fire('', 'Something went wrong!', 'error');
-            setLoading(false);
-        });
-    }, [params.id]);
+    let [loading, setLoading] = useState(true);
+    let category = useGetCategory(params.id);
 
     useEffect(() => {
-        document.title = 'Category View - React App';
-
-        getCategory();
-
-        return () => {
-            setName('');
-            setError('');
+        if (Object.keys(category).length > 0) {
             setLoading(false);
-        };
-    }, [getCategory]);
+            setName(category.name);
+        }
+    }, [category]);
 
     let handleChange = e => {
         setError('');
