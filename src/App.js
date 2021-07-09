@@ -1,16 +1,24 @@
 import { BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Router from "./router/Router";
+import ContextStore from "./contexts/ContextStore";
+import { useState } from "react";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="container">
-        <Navbar />
+  const [loading, setLoading] = useState(true);
+  function toggleLoading(value = false) {
+    setLoading(value);
+  }
 
-        <Router />
-      </div>
-    </BrowserRouter>
+  return (
+    <ContextStore.Provider value={{loading, toggleLoading }}>
+      <BrowserRouter>
+        <div className="container">
+          <Navbar />
+          <Router />
+        </div>
+      </BrowserRouter>
+    </ContextStore.Provider>
   );
 }
 

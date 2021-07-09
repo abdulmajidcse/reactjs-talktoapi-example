@@ -6,8 +6,8 @@ function Spinner({loading = false}) {
 
     let loadingStyle = {
         position: 'fixed',
-        top: '40%',
-        left: '50%',
+        top: '20%',
+        left: '45%',
     };
 
     if(! loading) {
