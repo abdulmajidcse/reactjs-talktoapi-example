@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Api = axios.create({
-    baseURL: 'https://talktoapi.abdulmajid.me',
+    baseURL: 'http://talktoapi.test',
   });
 
 export default Api;

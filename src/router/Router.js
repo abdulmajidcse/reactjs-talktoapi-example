@@ -1,33 +1,13 @@
 import { Switch, Route } from "react-router-dom";
-import Home from '../views/Home';
-import CategoryIndex from "../views/category/CategoryIndex";
-import CategoryCreate from "../views/category/CategoryCreate";
-import CategoryView from "../views/category/CategoryView";
-import CategoryEdit from "../views/category/CategoryEdit";
+import Home from '../pages/Home';
 
 function Router() {
     return (
-        <div>
-            {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-            <Switch>
-                <Route exact path="/">
-                    <Home />
-                </Route>
-                <Route exact path="/categories">
-                    <CategoryIndex />
-                </Route>
-                <Route path="/categories/create">
-                    <CategoryCreate />
-                </Route>
-                <Route path="/categories/:id/edit">
-                    <CategoryEdit />
-                </Route>
-                <Route path="/categories/:id">
-                    <CategoryView />
-                </Route>
-            </Switch>
-        </div>
+        <Switch>
+            <Route exact path="/">
+                <Home />
+            </Route>
+        </Switch>
     );
 }
 
