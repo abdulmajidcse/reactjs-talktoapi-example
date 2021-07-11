@@ -1,4 +1,6 @@
-function Spinner({loading = false}) {
+import { Spinner } from "react-bootstrap";
+
+function Loading({show = false}) {
     let style = {
         width: '3rem',
         height: '3rem',
@@ -10,17 +12,15 @@ function Spinner({loading = false}) {
         left: '45%',
     };
 
-    if(! loading) {
+    if(! show) {
         return false;
     }
 
     return (
         <div className="text-center" style={loadingStyle}>
-            <div className="spinner-border" style={style} role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
+            <Spinner animation="border" style={style} />
         </div>
     );
 }
 
-export default Spinner;
+export default Loading;
