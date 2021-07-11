@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
 import { Container, Card } from 'react-bootstrap';
-import Slider from '../components/Slider';
 
-export default function Home() {
+export default function TodoIndex() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Home - Developer Blog';
+    document.title = 'Todo List - Developer Blog';
     setLoading(false);
   }, []);
 
@@ -16,10 +15,10 @@ export default function Home() {
       <Loading show={loading} />
       <Card className="rounded-0">
         <Card.Header>
-          <Card.Title>Welcome to Developer Blog</Card.Title>
+          <Card.Title>Todo List</Card.Title>
         </Card.Header>
         <Card.Body>
-          <Slider />
+          Todo List
         </Card.Body>
       </Card>
     </Container>

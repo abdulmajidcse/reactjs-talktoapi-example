@@ -1,17 +1,18 @@
 import { Container, Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import '../assets/css/style.css';
 
 export default function Header() {
     return (
         <div className="bg-primary">
             <Container>
-                <Navbar className="navbar-dark" bg="primary" expand="lg">
+                <Navbar className="navbar-dark p-0" bg="primary" expand="lg">
                 <Link to="/"><Navbar.Brand className="font-weight-bold">DB</Navbar.Brand></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
-                            <Link to="/" className="nav-link active">Home</Link>
-                            <Nav.Link href="#link">Todo</Nav.Link>
+                        <Nav>
+                            <NavLink exact to="/" className="nav-link">Home</NavLink>
+                            <NavLink exact to="/todos" className="nav-link">Todo List</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
