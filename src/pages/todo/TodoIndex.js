@@ -6,7 +6,7 @@ export default function TodoIndex() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Todo List - Developer Blog';
+    document.title = 'Todo List - ReactLumenBlog';
     setLoading(false);
   }, []);
 

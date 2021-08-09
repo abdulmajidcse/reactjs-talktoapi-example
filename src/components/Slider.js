@@ -3,13 +3,14 @@ import laravel from '../assets/images/laravel.png';
 import lumen from '../assets/images/lumen.png';
 import reactjs from '../assets/images/reactjs.png';
 import sliderImage from '../assets/css/slider-image.module.css';
+import '../assets/css/slider-image.css';
 
 export default function Slider() {
     return (
         <Carousel>
             <Carousel.Item>
                 <img
-                className={`d-block w-100 ${sliderImage.sliderImage}`}
+                className={`d-block w-100 ${sliderImage.sliderImage} home-slide`}
                 src={laravel}
                 alt="Laravel"
                 />
@@ -20,7 +21,7 @@ export default function Slider() {
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                className={`d-block w-100 ${sliderImage.sliderImage}`}
+                className={`d-block w-100 ${sliderImage.sliderImage} home-slide`}
                 src={lumen}
                 alt="Lumen"
                 />
@@ -32,7 +33,7 @@ export default function Slider() {
             </Carousel.Item>
             <Carousel.Item>
                 <img
-                className={`d-block w-100 ${sliderImage.sliderImage}`}
+                className={`d-block w-100 ${sliderImage.sliderImage} home-slide`}
                 src={reactjs}
                 alt="ReactJS"
                 />

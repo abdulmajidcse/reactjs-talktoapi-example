@@ -2,10 +2,10 @@ import { Container } from "react-bootstrap";
 
 export default function Footer() {
     return (
-        <div className="p-3" style={{background: 'black'}}>
+        <div className="p-3 bg-light">
             <Container>
                 <div className="text-center">
-                    <h4 className="text-light">Developer Blog &#10084; Abdul Majid</h4>
+                    <p>2021 &copy; Developed By <a href="https://facebook.com/abdulmajidcse" target="_blank">Abdul Majid</a></p>
                 </div>
             </Container>
         </div>

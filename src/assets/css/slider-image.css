@@ -1,0 +1,20 @@
+@media only screen and (max-width: 770px) {
+    .home-slide {
+        height: 400px !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .home-slide {
+        height: 300px !important;
+    }
+    .carousel-caption {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .home-slide {
+        height: 200px !important;
+    }
+}

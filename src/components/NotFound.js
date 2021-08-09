@@ -6,7 +6,7 @@ export default function NotFound() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      document.title = '404 | Not Found - Developer Blog';
+      document.title = '404 | Not Found - ReactLumenBlog';
       setLoading(false);
     }, []);
 

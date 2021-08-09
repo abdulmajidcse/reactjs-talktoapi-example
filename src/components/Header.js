@@ -1,16 +1,15 @@
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
-import '../assets/css/style.css';
 
 export default function Header() {
     return (
-        <div className="bg-primary">
+        <div className="bg-light">
             <Container>
-                <Navbar className="navbar-dark p-0" bg="primary" expand="lg">
-                <Link to="/"><Navbar.Brand className="font-weight-bold">DB</Navbar.Brand></Link>
+                <Navbar bg="light" expand="lg">
+                <Link className="text-decoration-none" to="/"><Navbar.Brand>ReactLumenBlog</Navbar.Brand></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav>
+                        <Nav className="ms-auto">
                             <NavLink exact to="/" className="nav-link">Home</NavLink>
                             <NavLink exact to="/todos" className="nav-link">Todo List</NavLink>
                         </Nav>

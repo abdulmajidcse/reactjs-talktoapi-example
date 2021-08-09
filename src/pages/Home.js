@@ -1,27 +1,20 @@
 import { useEffect, useState } from 'react';
 import Loading from "../components/Loading";
-import { Container, Card } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Slider from '../components/Slider';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Home - Developer Blog';
+    document.title = 'Home - ReactLumenBlog';
     setLoading(false);
   }, []);
 
   return (
-    <Container>
+    <Container className="mt-3">
       <Loading show={loading} />
-      <Card className="rounded-0">
-        <Card.Header>
-          <Card.Title>Welcome to Developer Blog</Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <Slider />
-        </Card.Body>
-      </Card>
+      <Slider />
     </Container>
   );
 }
