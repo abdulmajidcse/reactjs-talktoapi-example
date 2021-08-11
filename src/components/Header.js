@@ -6,7 +6,7 @@ export default function Header() {
         <div className="bg-light">
             <Container>
                 <Navbar bg="light" expand="lg">
-                <Link className="text-decoration-none" to="/"><Navbar.Brand>ReactLumenBlog</Navbar.Brand></Link>
+                <Link className="text-decoration-none" to="/"><Navbar.Brand>ReactJS Practise</Navbar.Brand></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">

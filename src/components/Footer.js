@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="p-3 bg-light">
             <Container>
                 <div className="text-center">
-                    <p>2021 &copy; Developed By <a href="https://facebook.com/abdulmajidcse" target="_blank">Abdul Majid</a></p>
+                    <p>2021 &copy; Developed By <a href="https://facebook.com/abdulmajidcse">Abdul Majid</a></p>
                 </div>
             </Container>
         </div>
