@@ -7,7 +7,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Home - ReactLumenBlog';
+    document.title = 'Home - ReactJs Practise';
     setLoading(false);
   }, []);
 
