@@ -10,6 +10,7 @@ function Loading({show = false}) {
         position: 'fixed',
         top: '20%',
         left: '45%',
+        zIndex: 99999,
     };
 
     if(! show) {
@@ -17,9 +18,11 @@ function Loading({show = false}) {
     }
 
     return (
-        <div className="text-center" style={loadingStyle}>
-            <Spinner animation="border" style={style} />
-        </div>
+        <>
+            <Spinner animation="border" role="status" style={loadingStyle}>
+                <span className="visually-hidden" style={style}>Loading...</span>
+            </Spinner>
+      </>
     );
 }
 
