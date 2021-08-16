@@ -12,6 +12,8 @@ export default function Header() {
                         <Nav className="ms-auto">
                             <NavLink exact to="/" className="nav-link">Home</NavLink>
                             <NavLink exact to="/todos" className="nav-link">Todo List</NavLink>
+                            <NavLink exact to="/register" className="nav-link">Register</NavLink>
+                            <NavLink exact to="/login" className="nav-link">Login</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
