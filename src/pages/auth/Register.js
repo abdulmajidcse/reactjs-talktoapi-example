@@ -90,40 +90,38 @@ class Register extends React.Component {
                     <Loading show={loading} />
                     <Card className="rounded-0 my-3">
                         <Card.Header>
-                        <Card.Title>
-                            <span>Register a new account</span>
-                        </Card.Title>
+                            <Card.Title>
+                                <span>Register a new account</span>
+                            </Card.Title>
                         </Card.Header>
                         <Card.Body>
-                        
-                        <Form onSubmit={this.registerAccount}>
-                        <Form.Group className="mb-3" controlId="name">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" name="name" value={name} onChange={this.handleInput} />
-                            {errors.name && <Form.Text className="text-danger">{errors.name}</Form.Text>}
-                        </Form.Group>
+                            <Form onSubmit={this.registerAccount}>
+                                <Form.Group className="mb-3" controlId="name">
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="text" name="name" value={name} onChange={this.handleInput} />
+                                    {errors.name && <Form.Text className="text-danger">{errors.name}</Form.Text>}
+                                </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" rows={3} name="email" value={email} onChange={this.handleInput} />
-                            {errors.email && <Form.Text className="text-danger">{errors.email}</Form.Text>}
-                        </Form.Group>
+                                <Form.Group className="mb-3" controlId="email">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control type="email" rows={3} name="email" value={email} onChange={this.handleInput} />
+                                    {errors.email && <Form.Text className="text-danger">{errors.email}</Form.Text>}
+                                </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" name="password" value={password} onChange={this.handleInput} />
-                            {errors.password && <Form.Text className="text-danger">{errors.password}</Form.Text>}
-                        </Form.Group>
+                                <Form.Group className="mb-3" controlId="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" name="password" value={password} onChange={this.handleInput} />
+                                    {errors.password && <Form.Text className="text-danger">{errors.password}</Form.Text>}
+                                </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="password_confirmation">
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control type="password" name="password_confirmation" value={password_confirmation} onChange={this.handleInput} />
-                        </Form.Group>
+                                <Form.Group className="mb-3" controlId="password_confirmation">
+                                    <Form.Label>Confirm Password</Form.Label>
+                                    <Form.Control type="password" name="password_confirmation" value={password_confirmation} onChange={this.handleInput} />
+                                </Form.Group>
 
-                        <Button ref={this.submitButton} className="me-2" variant="primary" type="submit">Register</Button>
-                        <Link className="btn btn-danger" to="/login">Login</Link>
-                        </Form>
-                        
+                                <Button ref={this.submitButton} className="me-2" variant="primary" type="submit">Register</Button>
+                                <Link className="btn btn-danger" to="/login">Login</Link>
+                            </Form>
                         </Card.Body>
                     </Card>
                 </Container>
