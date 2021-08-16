@@ -14,6 +14,7 @@ class Login extends React.Component {
             password: '',
             errors: {
                 email: '',
+                password: '',
             }
         };
 
@@ -70,9 +71,17 @@ class Login extends React.Component {
             });
             // enable submit button
             submitButton.removeAttribute('disabled');
-            this.setState({
-                errors: errors,
-            });
+            if (errors.message) {
+                this.setState({
+                    errors: {
+                        email: 'Email or password did not match.',
+                    },
+                });
+            } else {
+                this.setState({
+                    errors: errors,
+                });
+            }
         });
     }
 
@@ -100,6 +109,7 @@ class Login extends React.Component {
                                 <Form.Group className="mb-3" controlId="password">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" name="password" value={password} onChange={this.handleInput} />
+                                    {errors.password && <Form.Text className="text-danger">{errors.password}</Form.Text>}
                                 </Form.Group>
 
                                 <Button ref={this.submitButton} className="me-2" variant="primary" type="submit">Login</Button>
