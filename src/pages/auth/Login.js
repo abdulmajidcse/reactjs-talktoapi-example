@@ -61,6 +61,7 @@ class Login extends React.Component {
         Api.post('/login', data)
         .then(({ data }) => {
             console.log(data.data.access_token);
+            localStorage.setItem('reactjs_practise_access_token', data.data.access_token);
             history.push("/");
             Swal.fire('', 'Logged in successfully!', 'success');
         })

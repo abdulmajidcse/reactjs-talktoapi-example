@@ -14,6 +14,7 @@ export default function Header() {
                             <NavLink exact to="/todos" className="nav-link">Todo List</NavLink>
                             <NavLink exact to="/register" className="nav-link">Register</NavLink>
                             <NavLink exact to="/login" className="nav-link">Login</NavLink>
+                            <NavLink exact to="/posts" className="nav-link">Post</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
