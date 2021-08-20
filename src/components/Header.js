@@ -1,7 +1,16 @@
 import { Container, Navbar, Nav } from 'react-bootstrap';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+import { useUserContext } from '../contexts/userContext';
 
 export default function Header() {
+    const { logout } = useUserContext();
+    const history = useHistory();
+
+    const userLogout = () => {
+        logout();
+        history.push("/login");
+    };
+
     return (
         <div className="bg-light">
             <Container>
@@ -15,6 +24,7 @@ export default function Header() {
                             <NavLink exact to="/register" className="nav-link">Register</NavLink>
                             <NavLink exact to="/login" className="nav-link">Login</NavLink>
                             <NavLink exact to="/posts" className="nav-link">Post</NavLink>
+                            <span className="nav-link" style={{cursor: 'pointer'}} onClick={userLogout}>Logout</span>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

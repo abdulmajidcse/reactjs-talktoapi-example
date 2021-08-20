@@ -4,6 +4,7 @@ import { Container, Card, Form, Button } from 'react-bootstrap';
 import { withRouter, Link } from 'react-router-dom';
 import Api from '../../config/Api';
 import Swal from 'sweetalert2';
+import { UserContext } from '../../contexts/userContext';
 
 class Login extends React.Component {
     constructor(props) {
@@ -22,6 +23,8 @@ class Login extends React.Component {
 
         this.handleInput = this.handleInput.bind(this);
     }
+
+    static contextType = UserContext;
 
     componentDidMount() {
         this.setState({
@@ -50,6 +53,7 @@ class Login extends React.Component {
 
         let submitButton = this.submitButton.current;
         let { history } = this.props;
+        let { login } = this.context;
 
         // disabled submit button
         submitButton.setAttribute('disabled', true);
@@ -60,8 +64,7 @@ class Login extends React.Component {
         data.append('password', password);
         Api.post('/login', data)
         .then(({ data }) => {
-            console.log(data.data.access_token);
-            localStorage.setItem('reactjs_practise_access_token', data.data.access_token);
+            login(data.data.access_token, {name: 'Abdul Majid', email: 'abdulmajid@gmail.com', ID: 1});
             history.push("/");
             Swal.fire('', 'Logged in successfully!', 'success');
         })
