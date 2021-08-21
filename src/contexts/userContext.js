@@ -1,4 +1,6 @@
 import React, { useContext, useState } from 'react';
+import Api from '../config/Api';
+import { getToken, removeToken } from '../utils/token';
 
 export const UserContext = React.createContext({
     user: {
@@ -13,13 +15,26 @@ const USER = { authIs: false, name: 'Guest' };
 export const UserContextProvider = ({ children }) => {
     const [user, setUser] = useState(USER);
 
-    const login = (accessToken, user) => {
-        localStorage.setItem('reactjs_practise_access_token', accessToken);
-        setUser({authIs: true, ...user});
+    const login = () => {
+        const token = getToken();
+        if (token) {
+            Api.get(`/user?token=${token}`)
+            .then(({ data: { data } }) => {
+                setUser({authIs: true, ...data});
+            })
+            .catch(() => {
+                logout();
+            });
+        }
     };
 
     const logout = () => {
-        localStorage.removeItem('reactjs_practise_access_token');
+        const token = getToken();
+        if (token) {
+            Api.post(`/logout?token=${token}`)
+            .then(() => {});
+        }
+        removeToken();
         setUser(USER);
     };
 

@@ -1,6 +1,4 @@
 import { Switch } from "react-router-dom";
-import { GuardProvider, GuardedRoute } from "react-router-guards";
-import CheckGuard from '../utils/CheckGuard';
 import NotFound from "../components/NotFound";
 import Home from '../pages/Home';
 import TodoIndex from "../pages/todo/TodoIndex";
@@ -8,29 +6,43 @@ import TodoCreate from '../pages/todo/TodoCreate';
 import TodoEdit from '../pages/todo/TodoEdit';
 import Register from "../pages/auth/Register";
 import Login from '../pages/auth/Login';
-import Loading from "../components/Loading";
+import GuardedRoute from "./guards/GuardedRoute";
+import Post from "../pages/Post";
 
 function Router() {
+    
     return (
         <>
-            <GuardProvider guards={[CheckGuard]} loading={() => (<Loading show={true} />)} error={NotFound}>
-                <Switch>
-                    <GuardedRoute exact path="/" component={Home} />
-                    <GuardedRoute path="/todos/create" component={TodoCreate} />
-                    <GuardedRoute path="/todos/:id/edit" component={TodoEdit} />
-                    <GuardedRoute path="/todos" component={TodoIndex} />
-                    {/* auth routes */}
-                    <GuardedRoute path="/register" component={Register} meta={{ guard: 'guest' }} />
-                    <GuardedRoute path="/login" component={Login} meta={{ guard: 'guest' }} />
+            <Switch>
+                <GuardedRoute exact path="/">
+                    <Home />
+                </GuardedRoute>
+                <GuardedRoute path="/todos/create">
+                    <TodoCreate />
+                </GuardedRoute>
+                <GuardedRoute path="/todos/:id/edit">
+                    <TodoEdit />
+                </GuardedRoute>
+                <GuardedRoute path="/todos">
+                    <TodoIndex />
+                </GuardedRoute>
+                {/* auth GuardedRoutes */}
+                <GuardedRoute path="/register" meta={{guard: 'guest'}}>
+                    <Register />
+                </GuardedRoute>
+                <GuardedRoute path="/login" meta={{guard: 'guest'}}>
+                    <Login />
+                </GuardedRoute>
 
-                    <GuardedRoute path="/posts" render={() => {
-                        return 'post page';
-                    }} meta={{ guard: 'auth' }} />
+                <GuardedRoute path="/posts" meta={{guard: 'auth'}}>
+                    <Post />
+                </GuardedRoute>
 
-                    {/* not found route */}
-                    <GuardedRoute path="*" component={NotFound} />
-                </Switch>
-            </GuardProvider>
+                {/* not found route */}
+                <GuardedRoute path="*">
+                    <NotFound />
+                </GuardedRoute>
+            </Switch>
         </>
     );
 }

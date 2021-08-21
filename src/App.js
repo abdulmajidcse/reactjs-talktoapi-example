@@ -5,7 +5,6 @@ import Footer from "./components/Footer";
 import { UserContextProvider } from './contexts/userContext';
 
 function App() {
-
   return (
     <UserContextProvider>
       <BrowserRouter>

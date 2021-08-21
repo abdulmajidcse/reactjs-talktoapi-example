@@ -5,6 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 import Api from '../../config/Api';
 import Swal from 'sweetalert2';
 import { UserContext } from '../../contexts/userContext';
+import { setToken } from '../../utils/token';
 
 class Login extends React.Component {
     constructor(props) {
@@ -64,7 +65,8 @@ class Login extends React.Component {
         data.append('password', password);
         Api.post('/login', data)
         .then(({ data }) => {
-            login(data.data.access_token, {name: 'Abdul Majid', email: 'abdulmajid@gmail.com', ID: 1});
+            setToken(data.data.access_token);
+            login();
             history.push("/");
             Swal.fire('', 'Logged in successfully!', 'success');
         })

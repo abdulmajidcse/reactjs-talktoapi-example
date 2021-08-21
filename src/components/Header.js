@@ -3,7 +3,7 @@ import { Link, NavLink, useHistory } from 'react-router-dom';
 import { useUserContext } from '../contexts/userContext';
 
 export default function Header() {
-    const { logout } = useUserContext();
+    const { user, logout } = useUserContext();
     const history = useHistory();
 
     const userLogout = () => {
@@ -21,10 +21,10 @@ export default function Header() {
                         <Nav className="ms-auto">
                             <NavLink exact to="/" className="nav-link">Home</NavLink>
                             <NavLink exact to="/todos" className="nav-link">Todo List</NavLink>
-                            <NavLink exact to="/register" className="nav-link">Register</NavLink>
-                            <NavLink exact to="/login" className="nav-link">Login</NavLink>
-                            <NavLink exact to="/posts" className="nav-link">Post</NavLink>
-                            <span className="nav-link" style={{cursor: 'pointer'}} onClick={userLogout}>Logout</span>
+                            {!user.authIs ? <NavLink exact to="/register" className="nav-link">Register</NavLink> : ''}
+                            {!user.authIs ? <NavLink exact to="/login" className="nav-link">Login</NavLink> : ''}
+                            {user.authIs ? <NavLink exact to="/posts" className="nav-link">Post</NavLink> : '' }
+                            {user.authIs ? <span className="nav-link" style={{cursor: 'pointer'}} onClick={userLogout}>Logout</span> : '' }
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
