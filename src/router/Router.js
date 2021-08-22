@@ -8,6 +8,7 @@ import Register from "../pages/auth/Register";
 import Login from '../pages/auth/Login';
 import GuardedRoute from "./guards/GuardedRoute";
 import Post from "../pages/Post";
+import Category from "../pages/Category";
 
 function Router() {
     
@@ -34,6 +35,9 @@ function Router() {
                     <Login />
                 </GuardedRoute>
 
+                <GuardedRoute path="/categories" guard="auth">
+                    <Category />
+                </GuardedRoute>
                 <GuardedRoute path="/posts" guard="auth">
                     <Post />
                 </GuardedRoute>
