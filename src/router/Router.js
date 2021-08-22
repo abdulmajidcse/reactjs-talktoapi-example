@@ -27,14 +27,14 @@ function Router() {
                     <TodoIndex />
                 </GuardedRoute>
                 {/* auth GuardedRoutes */}
-                <GuardedRoute path="/register" meta={{guard: 'guest'}}>
+                <GuardedRoute path="/register" guard="guest">
                     <Register />
                 </GuardedRoute>
-                <GuardedRoute path="/login" meta={{guard: 'guest'}}>
+                <GuardedRoute path="/login" guard="guest">
                     <Login />
                 </GuardedRoute>
 
-                <GuardedRoute path="/posts" meta={{guard: 'auth'}}>
+                <GuardedRoute path="/posts" guard="auth">
                     <Post />
                 </GuardedRoute>
 

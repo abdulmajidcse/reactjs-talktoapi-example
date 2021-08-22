@@ -1,38 +1,44 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Redirect, Route, useLocation } from "react-router";
 import { useUserContext } from "../../contexts/userContext";
+import Loading from '../../components/Loading';
+import { getToken } from "../../utils/token";
 
 const GuardedRoute = ({ children, ...rest }) =>  {
-    const { user, login } = useUserContext();
-    const location = useLocation();
+  const [loading, setLoading] = useState(true);
+  const { user, login } = useUserContext();
+  const location = useLocation();
 
-    useEffect(() => {
-      if (!user.authIs) {
-        login();
-      }
-    }, [user, login]);
+  useEffect(() => {
+    if (getToken() && !user.authIs) {
+      setLoading(true);
+      login();
+    } else {
+      setLoading(false);
+    }
+  }, [rest, user, login]);
 
-    const component = (meta = null) => {
-      if (meta && meta.guard === 'auth' && !user.authIs) {
-        return <Redirect to={{
-          pathname: "/login",
-          state: { from: location }
-        }} />;
-      } else if (meta && meta.guard === 'guest' && user.authIs) {
-        return <Redirect to={{
-          pathname: "/",
-          state: { from: location }
-        }} />;
-      } else {
-        return children;
-      }
-    };
+  const component = (guard = null) => {
+    if (guard === 'auth' && !user.authIs) {
+      return <Redirect to={{
+        pathname: "/login",
+        state: { from: location }
+      }} />;
+    } else if (guard === 'guest' && user.authIs) {
+      return <Redirect to={{
+        pathname: "/",
+        state: { from: location }
+      }} />;
+    } else {
+      return children;
+    }
+  };
 
-    return (
-      <Route {...rest}>
-        {component(rest.meta)}
-      </Route>
-    );
+  return (
+    loading ? <Loading show={loading} /> : <Route {...rest}>
+      {component(rest.guard)}
+    </Route>
+  );
 };
 
 export default GuardedRoute;
