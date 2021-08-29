@@ -28,6 +28,44 @@ class Category extends React.Component {
         });
     }
 
+    deleteCategory(id) {
+        Swal.fire({
+            title: '',
+            text: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No!'
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                this.setState({
+                    loading: true,
+                });
+                let data = new FormData();
+                data.append('_method', 'delete');
+                Api.post(`/categories/${id}?token=${getToken()}`, data)
+                .then(() => {
+                    let newCategoires = this.state.categories.filter(category => category.id !== id);
+                    this.setState({
+                        categories: newCategoires,
+                        loading: false,
+                    });
+        
+                    Swal.fire('', 'Category Deleted Successfully!', 'success');
+                })
+                .catch(() => {
+                    Swal.fire('', 'Something went wrong!', 'error');
+                    this.setState({
+                        loading: false,
+                    });
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire('', 'Cancelled', 'error');
+            }
+        });
+    }
+
     componentDidMount() {
         this.getCategories();
     }
@@ -41,7 +79,7 @@ class Category extends React.Component {
                 <td>{category.name}</td>
                 <td>
                     <Link className="btn btn-sm btn-primary"  to="/">Edit</Link>
-                    <button type="button" className="btn btn-sm btn-danger"  onClick={() => alert('delete')}>Delete</button>
+                    <button type="button" className="btn btn-sm btn-danger"  onClick={() => this.deleteCategory(category.id)}>Delete</button>
                 </td>
             </tr>
         );
