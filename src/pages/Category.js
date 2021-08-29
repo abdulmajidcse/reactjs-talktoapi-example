@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Card, Table } from 'react-bootstrap';
+import { Container, Card, Table, Modal, Button, Form } from 'react-bootstrap';
 import Loading from '../components/Loading';
 import Api from '../config/Api';
 import Swal from 'sweetalert2';
@@ -9,7 +9,9 @@ import { getToken } from '../utils/token';
 class Category extends React.Component {
     state = {
         categories: [],
+        name: '',
         loading: true,
+        modalShow: false,
     };
 
     getCategories() {
@@ -26,6 +28,34 @@ class Category extends React.Component {
                 loading: false, 
               });
         });
+    }
+
+    componentDidMount() {
+        this.getCategories();
+    }
+
+    modalOpen = () => {
+        this.setState({
+            modalShow: true,
+        });
+    }
+
+    modalClose = () => {
+        this.setState({
+            modalShow: false,
+        });
+    }
+
+    setName = (event) => {
+        this.setState({
+            name: event.target.value,
+        });
+    }
+
+    categorySave = (event) => {
+        event.preventDefault();
+        
+        alert(this.state.name);
     }
 
     deleteCategory(id) {
@@ -66,12 +96,8 @@ class Category extends React.Component {
         });
     }
 
-    componentDidMount() {
-        this.getCategories();
-    }
-
     render() {
-        const { categories } = this.state;
+        const { categories, modalShow } = this.state;
 
         const categoryList = categories.map((category, index) => 
             <tr key={category.id}>
@@ -79,7 +105,7 @@ class Category extends React.Component {
                 <td>{category.name}</td>
                 <td>
                     <Link className="btn btn-sm btn-primary"  to="/">Edit</Link>
-                    <button type="button" className="btn btn-sm btn-danger"  onClick={() => this.deleteCategory(category.id)}>Delete</button>
+                    <Button variant="danger" onClick={() => this.deleteCategory(category.id)}>Delete</Button>
                 </td>
             </tr>
         );
@@ -93,7 +119,7 @@ class Category extends React.Component {
                         <Card.Header>
                             <Card.Title>
                                 <span>Category List</span>
-                                <Link to="/" className="btn btn-sm btn-primary ms-2">Add New</Link>
+                                <Button variant="primary" className="ms-2" onClick={this.modalOpen}>Add New</Button>
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>
@@ -110,6 +136,34 @@ class Category extends React.Component {
                                 </tbody>
                             </Table>
                         </Card.Body>
+
+                        {/* category modal */}
+                        <Modal
+                            show={modalShow}
+                            onHide={this.modalClose}
+                            backdrop="static"
+                            keyboard={false}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>New Category</Modal.Title>
+                            </Modal.Header>
+                            <Form onSubmit={this.categorySave}>
+                                <Modal.Body>
+                                    <Form.Group className="mb-3" controlId="name">
+                                        <Form.Label>Name</Form.Label>
+                                        <Form.Control type="text" required onChange={this.setName} />
+                                        {/* <Form.Text className="text-danger">
+                                            name error message
+                                        </Form.Text> */}
+                                    </Form.Group>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="danger" onClick={this.modalClose}>
+                                        Close
+                                    </Button>
+                                    <Button type="submit" variant="primary">Save</Button>
+                                </Modal.Footer>
+                            </Form>
+                        </Modal>
                     </Card>
                 </Container>
             </>
