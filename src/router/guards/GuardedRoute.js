@@ -1,22 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Redirect, Route, useLocation } from "react-router";
 import { useUserContext } from "../../contexts/userContext";
-import Loading from '../../components/Loading';
 import { getToken } from "../../utils/token";
 
 const GuardedRoute = ({ children, ...rest }) =>  {
-  const [loading, setLoading] = useState(true);
   const { user, login } = useUserContext();
   const location = useLocation();
 
   useEffect(() => {
     if (getToken() && !user.authIs) {
-      setLoading(true);
       login();
-    } else {
-      setLoading(false);
     }
-  }, [rest, user, login]);
+  }, [user, login]);
 
   const component = (guard = null) => {
     if (guard === 'auth' && !user.authIs) {
@@ -35,7 +30,7 @@ const GuardedRoute = ({ children, ...rest }) =>  {
   };
 
   return (
-    loading ? <Loading show={loading} /> : <Route {...rest}>
+    <Route {...rest}>
       {component(rest.guard)}
     </Route>
   );
