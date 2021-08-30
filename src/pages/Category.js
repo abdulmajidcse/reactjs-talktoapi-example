@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Container, Card, Table, Modal, Button, Form } from 'react-bootstrap';
 import Loading from '../components/Loading';
 import Api from '../config/Api';
@@ -10,8 +9,10 @@ class Category extends React.Component {
     state = {
         categories: [],
         name: '',
+        categoryId: '',
         loading: true,
         modalShow: false,
+        nameError: '',
     };
 
     getCategories() {
@@ -34,15 +35,20 @@ class Category extends React.Component {
         this.getCategories();
     }
 
-    modalOpen = () => {
+    modalOpen = (event, category = {id: '', name: ''}) => {
         this.setState({
+            categoryId: category.id,
+            name: category.name,
             modalShow: true,
         });
     }
 
     modalClose = () => {
         this.setState({
+            categoryId: '',
+            name: '',
             modalShow: false,
+            nameError: '',
         });
     }
 
@@ -54,8 +60,47 @@ class Category extends React.Component {
 
     categorySave = (event) => {
         event.preventDefault();
-        
-        alert(this.state.name);
+        // loading component
+        this.setState({
+            loading: true,
+            nameError: '',
+        });
+        // get state
+        const { categoryId, name } = this.state;
+        // request url
+        let requestUrl = `/categories?token=${getToken()}`;
+        // set form data
+        let data = new FormData();
+        data.append('name', name);
+        // if category id exits, update the category
+        if (categoryId) {
+            data.append('_method', 'put');
+            requestUrl = `/categories/${categoryId}?token=${getToken()}`;
+        }
+
+        Api.post(requestUrl, data)
+        .then(() => {
+            this.modalClose();
+            this.setState({
+                categoryId: '',
+                name: '',
+                loading: false,
+            });
+            this.getCategories();
+            Swal.fire('', 'Successfully Category Saved!', 'success');
+        })
+        .catch((errors) => {
+            this.setState({
+                loading: false,
+            });
+            if (errors.response) {
+                this.setState({
+                  nameError: errors.response.data.name ? errors.response.data.name[0] : '',
+                });
+            } else {
+                Swal.fire('', 'Something went wrong!', 'error');
+            }
+        });
     }
 
     deleteCategory(id) {
@@ -97,20 +142,19 @@ class Category extends React.Component {
     }
 
     render() {
-        const { categories, modalShow } = this.state;
+        const { loading, categories, modalShow, categoryId, name, nameError } = this.state;
 
         const categoryList = categories.map((category, index) => 
             <tr key={category.id}>
                 <td>{++index}</td>
                 <td>{category.name}</td>
                 <td>
-                    <Link className="btn btn-sm btn-primary"  to="/">Edit</Link>
-                    <Button variant="danger" onClick={() => this.deleteCategory(category.id)}>Delete</Button>
+                <Button className="btn-sm" variant="primary" onClick={(event) => this.modalOpen(event, category)}>Edit</Button>
+                    <Button className="btn-sm" variant="danger" onClick={() => this.deleteCategory(category.id)}>Delete</Button>
                 </td>
             </tr>
         );
 
-        const { loading } = this.state;
         return (
             <>
                 <Container className="mt-3">
@@ -144,16 +188,14 @@ class Category extends React.Component {
                             backdrop="static"
                             keyboard={false}>
                             <Modal.Header closeButton>
-                                <Modal.Title>New Category</Modal.Title>
+                                <Modal.Title>{categoryId ? 'Edit' : 'New'} Category</Modal.Title>
                             </Modal.Header>
                             <Form onSubmit={this.categorySave}>
                                 <Modal.Body>
                                     <Form.Group className="mb-3" controlId="name">
                                         <Form.Label>Name</Form.Label>
-                                        <Form.Control type="text" required onChange={this.setName} />
-                                        {/* <Form.Text className="text-danger">
-                                            name error message
-                                        </Form.Text> */}
+                                        <Form.Control type="text" value={name} required onChange={this.setName} />
+                                        {nameError && <Form.Text className="text-danger">{nameError}</Form.Text>}
                                     </Form.Group>
                                 </Modal.Body>
                                 <Modal.Footer>
