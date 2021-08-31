@@ -1,32 +1,48 @@
 import { useEffect, useState } from "react";
 import { Container, Card, Table, Modal, Form, Button } from "react-bootstrap";
 import Loading from "../components/Loading";
+import Api from '../config/Api';
+import { getToken } from "../utils/token";
+import Swal from "sweetalert2";
 
 const Post = () => {
-    const [state, setState] = useState({
+    const [postState, setPostState] = useState({
         posts: [],
-        post: [],
+        post: {},
         categories: [],
         loading: true,
         errors: {},
         modalShow: false,
     });
 
-    useEffect(() => {
-        setState(prevState => {
+    const getPosts = () => {
+        Api.get(`/posts?token=${getToken()}`)
+        .then(response => {
+          setPostState(prevState => {
             return {
                 ...prevState,
-                loading: false
+                posts: response.data.data,
+                loading: false, 
             };
+          });
+        })
+        .catch(() => {
+            Swal.fire('', 'Something went wrong!', 'error');
+            setPostState(prevState => {
+                return {
+                    ...prevState,
+                    loading: false,
+                };
+              });
         });
+    };
 
-        return () => {
-            setState({});
-        };
+    useEffect(() => {
+        getPosts();
     }, []);
 
     const modalOpen = () => {
-        setState(prevState => {
+        setPostState(prevState => {
             return {
                 ...prevState,
                 modalShow: true
@@ -35,7 +51,7 @@ const Post = () => {
     };
 
     const modalClose = () => {
-        setState(prevState => {
+        setPostState(prevState => {
             return {
                 ...prevState,
                 modalShow: false
@@ -43,7 +59,23 @@ const Post = () => {
         });
     };
 
-    const { loading, modalShow, post } = state;
+    const { posts, loading, modalShow, post } = postState;
+
+    const postList = posts.map((post, index) => 
+        <tr key={post.id}>
+            <td>{++index}</td>
+            <td>{post.title}</td>
+            <td>{post.category.name}</td>
+            <td>
+                {post.image && <img src={post.image} className="w-100 img" alt='thumbnail' />}
+            </td>
+            <td>
+                <Button className="btn-sm" variant="primary" onClick={modalOpen}>Edit</Button>
+                <Button className="btn-sm" variant="danger">Delete</Button>
+            </td>
+        </tr>
+    );
+
     return (
         <>
             <Container className="mt-3">
@@ -66,9 +98,7 @@ const Post = () => {
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                
-                            </tbody>
+                            <tbody>{postList}</tbody>
                         </Table>
                     </Card.Body>
 
@@ -79,7 +109,7 @@ const Post = () => {
                         backdrop="static"
                         keyboard={false}>
                         <Modal.Header closeButton>
-                            <Modal.Title>{ post['id'] ? 'Edit' : 'New' } Post</Modal.Title>
+                            <Modal.Title>{post.id ? 'Edit' : 'New'} Post</Modal.Title>
                         </Modal.Header>
                         <Form>
                             <Modal.Body>
