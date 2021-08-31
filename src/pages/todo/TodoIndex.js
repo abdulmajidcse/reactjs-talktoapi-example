@@ -22,7 +22,7 @@ export default function TodoIndex() {
   };
 
   useEffect(() => {
-    document.title = 'Todo List - ReactJs Practise';
+    document.title = 'Todo List - reactjs-talktoapi-example';
     getTodos();
         
     // component unmount

@@ -7,7 +7,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Home - ReactJs Practise';
+    document.title = 'Home - reactjs-talktoapi-example';
     setLoading(false);
   }, []);
 

@@ -38,7 +38,7 @@ export default function TodoEdit() {
   }, [history, params.id]);
 
   useEffect(() => {
-    document.title = 'Todo Edit - ReactJs Practise';
+    document.title = 'Todo Edit - reactjs-talktoapi-example';
     getTodo();
 
     return () => {

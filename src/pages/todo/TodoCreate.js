@@ -19,7 +19,7 @@ export default function TodoCreate() {
   });
 
   useEffect(() => {
-    document.title = 'Todo Create - ReactJs Practise';
+    document.title = 'Todo Create - reactjs-talktoapi-example';
     setLoading(false);
   }, []);
 
