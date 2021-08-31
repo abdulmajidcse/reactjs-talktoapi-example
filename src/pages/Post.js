@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Card, Table, Modal, Form, Button } from "react-bootstrap";
+import { Container, Card, Table, Modal, Form, Button, FloatingLabel } from "react-bootstrap";
 import Loading from "../components/Loading";
 import Api from '../config/Api';
 import { getToken } from "../utils/token";
@@ -14,6 +14,18 @@ const Post = () => {
         errors: {},
         modalShow: false,
     });
+
+    const getCategories = () => {
+        Api.get(`/categories?token=${getToken()}`)
+        .then(response => {
+          setPostState(prevState => {
+            return {
+                ...prevState,
+                categories: response.data.data,
+            };
+          });
+        });
+    };
 
     const getPosts = () => {
         Api.get(`/posts?token=${getToken()}`)
@@ -38,14 +50,16 @@ const Post = () => {
     };
 
     useEffect(() => {
+        getCategories();
         getPosts();
     }, []);
 
-    const modalOpen = () => {
+    const modalOpen = (e, post = {}) => {
         setPostState(prevState => {
             return {
                 ...prevState,
-                modalShow: true
+                modalShow: true,
+                post,
             };
         });
     };
@@ -59,7 +73,7 @@ const Post = () => {
         });
     };
 
-    const { posts, loading, modalShow, post } = postState;
+    const { posts, loading, modalShow, post, categories, errors } = postState;
 
     const postList = posts.map((post, index) => 
         <tr key={post.id}>
@@ -74,6 +88,10 @@ const Post = () => {
                 <Button className="btn-sm" variant="danger">Delete</Button>
             </td>
         </tr>
+    );
+
+    const categoryList = categories.map((category, index) => 
+        <option key={category.id} value={category.id}>{category.name}</option>
     );
 
     return (
@@ -113,10 +131,28 @@ const Post = () => {
                         </Modal.Header>
                         <Form>
                             <Modal.Body>
-                                <Form.Group className="mb-3" controlId="name">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text"  required />
-                                    {/* {nameError && <Form.Text className="text-danger">{nameError}</Form.Text>} */}
+                                <Form.Group controlId="categoryId" className="mb-3">
+                                    <Form.Label>Category</Form.Label>
+                                    <Form.Select aria-label="Category">
+                                        {categoryList}
+                                    </Form.Select>
+                                    {errors.categoryId && <Form.Text className="text-danger">{errors.categoryId}</Form.Text>}
+                                </Form.Group>
+                                
+                                <FloatingLabel controlId="title" label="Title" className="mb-3">
+                                    <Form.Control type="text" placeholder="Title" required />
+                                </FloatingLabel>
+                                {errors.title && <Form.Text className="text-danger">{errors.title}</Form.Text>}
+
+                                <FloatingLabel controlId="content" label="Content" className="mb-3">
+                                    <Form.Control as="textarea" placeholder="What's on your mind?" style={{ height: '100px' }} required />
+                                </FloatingLabel>
+                                {errors.content && <Form.Text className="text-danger">{errors.content}</Form.Text>}
+
+                                <Form.Group controlId="image" className="mb-3">
+                                    <Form.Label>Image</Form.Label>
+                                    <Form.Control type="file" />
+                                    {errors.image && <Form.Text className="text-danger">{errors.image}</Form.Text>}
                                 </Form.Group>
                             </Modal.Body>
                             <Modal.Footer>
