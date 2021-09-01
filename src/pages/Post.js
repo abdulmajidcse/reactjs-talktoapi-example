@@ -98,7 +98,7 @@ const Post = () => {
             <td>{post.title}</td>
             <td>{post.category.name}</td>
             <td>
-                {post.image && <img src={post.image} className="w-100 img" alt="" />}
+                {post.image && <img src={post.image} style={{ width: 100 }} alt="" />}
             </td>
             <td>
                 <Button className="btn-sm" variant="primary" onClick={(event) => modalOpen(event, post.id, post.category.id, post.title, post.content, post.image)}>Edit</Button>
@@ -290,7 +290,7 @@ const Post = () => {
                                 </FloatingLabel>
                                 {errors.content && <Form.Text className="text-danger">{errors.content}</Form.Text>}
 
-                                {imageUrl && <img src={imageUrl} className="w-100 img" alt="" />}
+                                {imageUrl && <img src={imageUrl} style={{ width: 100 }} alt="" />}
                                 <Form.Group controlId="image" className="mb-3">
                                     <Form.Label>Image</Form.Label>
                                     <Form.Control type="file" ref={image} />
