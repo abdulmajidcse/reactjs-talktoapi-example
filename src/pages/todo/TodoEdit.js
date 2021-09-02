@@ -7,11 +7,7 @@ import Swal from 'sweetalert2';
 
 export default function TodoEdit() {
   const [loading, setLoading] = useState(true);
-  const [errors, setErrors] = useState({
-    title: '',
-    note: '',
-    comment: '',
-  });
+  const [errors, setErrors] = useState({});
   const [state, setState] = useState({
     title: '',
     note: '',
@@ -43,7 +39,7 @@ export default function TodoEdit() {
 
     return () => {
       setState([]);
-      setErrors('');
+      setErrors({});
       setLoading(false);
     };
   }, [getTodo]);
@@ -78,13 +74,9 @@ export default function TodoEdit() {
     })
     .catch(errors => {
       if (errors.response) {
-          setErrors({
-            title: errors.response.data.title ? errors.response.data.title[0] : '',
-            note: errors.response.data.note ? errors.response.data.note[0] : '',
-            comment: errors.response.data.comment ? errors.response.data.comment[0] : '',
-          });
+        setErrors(errors.response.data.errors);
       } else {
-          Swal.fire('', 'Something went wrong!', 'error');
+        Swal.fire('', 'Something went wrong!', 'error');
       }
       setLoading(false);
     });
