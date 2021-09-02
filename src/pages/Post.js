@@ -161,7 +161,7 @@ const Post = () => {
                 };
             });
             getPosts();
-            Swal.fire('', 'Successfully Category Saved!', 'success');
+            Swal.fire('', 'Successfully Post Saved!', 'success');
         })
         .catch((errors) => {
             setPostState(prevState => {
