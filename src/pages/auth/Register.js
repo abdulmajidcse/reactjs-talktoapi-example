@@ -70,13 +70,12 @@ class Register extends React.Component {
             history.push("/login");
         })
         .catch(({ response }) => {
-            let errors = response.data;
-            this.setState({
-                loading: false,
-            });
+            let errors = response.data.errors;
+
             // enable submit button
             submitButton.removeAttribute('disabled');
             this.setState({
+                loading: false,
                 errors: errors,
             });
         });

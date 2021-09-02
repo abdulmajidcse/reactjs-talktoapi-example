@@ -72,23 +72,14 @@ class Login extends React.Component {
             Swal.fire('', 'Logged in successfully!', 'success');
         })
         .catch(({ response }) => {
-            let errors = response.data;
-            this.setState({
-                loading: false,
-            });
+            let errors = response.data.errors;
             // enable submit button
             submitButton.removeAttribute('disabled');
-            if (errors.message) {
-                this.setState({
-                    errors: {
-                        email: 'Email or password did not match.',
-                    },
-                });
-            } else {
-                this.setState({
-                    errors: errors,
-                });
-            }
+
+            this.setState({
+                loading: false,
+                errors: errors,
+            });
         });
     }
 
