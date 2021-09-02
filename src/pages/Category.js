@@ -32,6 +32,7 @@ class Category extends React.Component {
     }
 
     componentDidMount() {
+        document.title = `Category - ${process.env.REACT_APP_NAME}`;
         this.getCategories();
     }
 

@@ -19,7 +19,7 @@ export default function TodoCreate() {
   });
 
   useEffect(() => {
-    document.title = 'Todo Create - reactjs-talktoapi-example';
+    document.title = `Todo Create - ${process.env.REACT_APP_NAME}`;
     setLoading(false);
   }, []);
 

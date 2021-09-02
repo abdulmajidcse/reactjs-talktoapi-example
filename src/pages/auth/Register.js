@@ -27,6 +27,7 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
+        document.title = `Register - ${process.env.REACT_APP_NAME}`;
         this.setState({
             loading: false,
         });

@@ -57,6 +57,7 @@ const Post = () => {
     };
 
     useEffect(() => {
+        document.title = `Post - ${process.env.REACT_APP_NAME}`;
         getCategories();
         getPosts();
     }, []);

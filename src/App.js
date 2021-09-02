@@ -7,7 +7,7 @@ import { UserContextProvider } from './contexts/userContext';
 function App() {
   return (
     <UserContextProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
         <Header />
         <Router />
         <Footer />

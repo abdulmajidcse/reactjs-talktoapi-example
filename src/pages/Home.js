@@ -7,7 +7,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Home - reactjs-talktoapi-example';
+    document.title = `Home - ${process.env.REACT_APP_NAME}`;
     setLoading(false);
   }, []);
 

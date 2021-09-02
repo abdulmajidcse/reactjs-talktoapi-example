@@ -28,6 +28,7 @@ class Login extends React.Component {
     static contextType = UserContext;
 
     componentDidMount() {
+        document.title = `Login - ${process.env.REACT_APP_NAME}`;
         this.setState({
             loading: false,
         });
