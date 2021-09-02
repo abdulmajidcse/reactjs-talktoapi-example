@@ -173,13 +173,8 @@ const Post = () => {
             if (errors.response) {
                 setPostState(prevState => {
                   return {
-                      ...prevState,
-                      errors: {
-                        category_id: errors.response.data.category_id ? errors.response.data.category_id[0] : '',
-                        title: errors.response.data.title ? errors.response.data.title[0] : '',
-                        content: errors.response.data.content ? errors.response.data.content[0] : '',
-                        image: errors.response.data.image ? errors.response.data.image[0] : '',
-                      },
+                    ...prevState,
+                    errors: errors.response.data.errors,
                   };
                 });
             } else {

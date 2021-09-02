@@ -96,7 +96,7 @@ class Category extends React.Component {
             });
             if (errors.response) {
                 this.setState({
-                  nameError: errors.response.data.name ? errors.response.data.name[0] : '',
+                  nameError: errors.response.data.errors.name ? errors.response.data.errors.name[0] : '',
                 });
             } else {
                 Swal.fire('', 'Something went wrong!', 'error');
