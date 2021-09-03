@@ -1,4 +1,4 @@
-import { Container, Navbar, Nav } from 'react-bootstrap';
+import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { useUserContext } from '../contexts/userContext';
 
@@ -25,7 +25,9 @@ export default function Header() {
                             {!user.authIs ? <NavLink exact to="/login" className="nav-link">Login</NavLink> : ''}
                             {user.authIs ? <NavLink exact to="/categories" className="nav-link">Category</NavLink> : '' }
                             {user.authIs ? <NavLink exact to="/posts" className="nav-link">Post</NavLink> : '' }
-                            {user.authIs ? <span className="nav-link" style={{cursor: 'pointer'}} onClick={userLogout}>Logout</span> : '' }
+                            {user.authIs && <NavDropdown title={user.name} id="profile-nav-dropdown">
+                                <NavDropdown.Item href="#" onClick={userLogout}>Logout</NavDropdown.Item>
+                            </NavDropdown>}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
