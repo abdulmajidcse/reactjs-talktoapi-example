@@ -14,6 +14,7 @@ export default function Home() {
   return (
     <Container className="mt-3">
       <Loading show={loading} />
+      <h4 className="p-2 border border-primary text-danger">Welcome to {process.env.REACT_APP_NAME}</h4>
       <Slider />
     </Container>
   );

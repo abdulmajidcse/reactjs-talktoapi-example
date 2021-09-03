@@ -20,6 +20,8 @@ export default function Header() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
                             <NavLink exact to="/" className="nav-link">Home</NavLink>
+                            <Nav.Link href="https://talktoapi.abdulmajid.me/">TalktoAPI</Nav.Link>
+                            <Nav.Link href="https://github.com/abdulmajidcse/reactjs-talktoapi-example">Github</Nav.Link>
                             <NavLink exact to="/todos" className="nav-link">Todo List</NavLink>
                             {!user.authIs ? <NavLink exact to="/register" className="nav-link">Register</NavLink> : ''}
                             {!user.authIs ? <NavLink exact to="/login" className="nav-link">Login</NavLink> : ''}
