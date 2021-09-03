@@ -168,7 +168,7 @@ class Category extends React.Component {
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Table striped bordered hover>
+                            <Table striped bordered hover responsive>
                                 <thead>
                                     <tr>
                                         <th>SL</th>

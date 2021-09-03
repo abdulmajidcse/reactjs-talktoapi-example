@@ -128,7 +128,7 @@ export default function TodoIndex() {
           </Card.Title>
         </Card.Header>
         <Card.Body>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead>
               <tr>
                 <th>SL</th>

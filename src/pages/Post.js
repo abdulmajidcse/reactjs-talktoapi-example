@@ -98,6 +98,7 @@ const Post = () => {
             <td>{++index}</td>
             <td>{post.title}</td>
             <td>{post.category.name}</td>
+            <td>{post.content}</td>
             <td>
                 {post.image && <img src={post.image} style={{ width: 100 }} alt="" />}
             </td>
@@ -242,12 +243,13 @@ const Post = () => {
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
-                        <Table striped bordered hover>
+                        <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
                                     <th>SL</th>
                                     <th>Title</th>
                                     <th>Category</th>
+                                    <th>Content</th>
                                     <th>Image</th>
                                     <th>Action</th>
                                 </tr>
