@@ -10,15 +10,29 @@ export default function TodoIndex() {
   const [todos, setTodos] = useState([]);
 
   const getTodos = () => {
-    Api.get('/todos')
+    // request handle with javascrpt fetch
+    fetch(`${process.env.REACT_APP_API_URL}/todos`, { method: 'get' })
+    .then(response => response.text())
     .then(response => {
-      setTodos(response.data.data);
+      let { data } = JSON.parse(response);
+      setTodos(data);
       setLoading(false);
     })
-    .catch(() => {
-        Swal.fire('', 'Something went wrong!', 'error');
-        setLoading(false);
+    .catch(error => {
+      Swal.fire('', 'Something went wrong!', 'error');
+      setLoading(false);
     });
+
+
+    // Api.get('/todos')
+    // .then(response => {
+    //   setTodos(response.data.data);
+    //   setLoading(false);
+    // })
+    // .catch(() => {
+    //     Swal.fire('', 'Something went wrong!', 'error');
+    //     setLoading(false);
+    // });
   };
 
   useEffect(() => {

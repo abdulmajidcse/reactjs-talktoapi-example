@@ -42,7 +42,7 @@ export default function TodoCreate() {
     data.append('comment', state.comment);
 
     Api.post('/todos', data)
-    .then((response) => {
+    .then(() => {
       Swal.fire('', 'Todo Saved Successfully', 'success');
       setLoading(false);
       setState({
@@ -51,11 +51,11 @@ export default function TodoCreate() {
         comment: '',
       });
     })
-    .catch(errors => {
-      if (errors.response) {
-        setErrors(errors.response.data.errors);
+    .catch(({ response }) => {
+      if (response.data.errors) {
+        setErrors(response.data.errors);
       } else {
-        Swal.fire('', 'Something went wrong!', 'error');
+        Swal.fire('', response.statusText, 'error');
       }
       setLoading(false);
     });
