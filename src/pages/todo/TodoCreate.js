@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Loading from "../../components/Loading";
 import { Container, Card, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Api from '../../config/Api';
+// import Api from '../../config/Api';
 import Swal from 'sweetalert2';
 
 export default function TodoCreate() {
@@ -41,24 +41,48 @@ export default function TodoCreate() {
     data.append('note', state.note);
     data.append('comment', state.comment);
 
-    Api.post('/todos', data)
-    .then(() => {
-      Swal.fire('', 'Todo Saved Successfully', 'success');
-      setLoading(false);
-      setState({
-        title: '',
-        note: '',
-        comment: '',
-      });
-    })
-    .catch(({ response }) => {
-      if (response.data.errors) {
-        setErrors(response.data.errors);
+    // request handle with javascrpt fetch
+    fetch(`${process.env.REACT_APP_API_URL}/todos`, { method: 'post', body: data })
+    .then(response => response.text())
+    .then(response => {
+      let data = JSON.parse(response);
+      if (data.errors) {
+        setErrors(data.errors);
       } else {
-        Swal.fire('', response.statusText, 'error');
+        Swal.fire('', 'Todo Saved Successfully', 'success');
+        setLoading(false);
+        setState({
+          title: '',
+          note: '',
+          comment: '',
+        });
       }
       setLoading(false);
+    })
+    .catch(() => {
+      Swal.fire('', 'Something went wrong!', 'error');
+      setLoading(false);
     });
+
+    // Api.post('/todos', data)
+    // .then(() => {
+    //   Swal.fire('', 'Todo Saved Successfully', 'success');
+    //   setLoading(false);
+    //   setState({
+    //     title: '',
+    //     note: '',
+    //     comment: '',
+    //   });
+    // })
+    // .catch(({ response }) => {
+    //   if (response.data.errors) {
+    //     setErrors(response.data.errors);
+    //   } else {
+    //     Swal.fire('', response.statusText, 'error');
+    //   }
+    //   setLoading(false);
+    // });
+
   };
 
   return (

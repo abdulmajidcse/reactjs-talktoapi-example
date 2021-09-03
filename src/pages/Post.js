@@ -163,24 +163,24 @@ const Post = () => {
             getPosts();
             Swal.fire('', 'Successfully Post Saved!', 'success');
         })
-        .catch((errors) => {
+        .catch(({ response }) => {
+            if (response.data.errors) {
+                setPostState(prevState => {
+                    return {
+                      ...prevState,
+                      errors: response.data.errors,
+                    };
+                });
+            } else {
+              Swal.fire('', response.statusText, 'error');
+            }
             setPostState(prevState => {
                 return {
                     ...prevState,
                     loading: false,
                 };
             });
-            if (errors.response) {
-                setPostState(prevState => {
-                  return {
-                    ...prevState,
-                    errors: errors.response.data.errors,
-                  };
-                });
-            } else {
-                Swal.fire('', 'Something went wrong!', 'error');
-            }
-        });
+          });
     };
 
     const deletePost = (id) => {

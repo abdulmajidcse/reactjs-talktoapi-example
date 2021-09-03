@@ -67,19 +67,37 @@ export default function TodoEdit() {
     data.append('comment', state.comment);
     data.append('_method', 'put');
 
-    Api.post(`/todos/${params.id}`, data)
-    .then((response) => {
-      Swal.fire('', 'Todo Updated Successfully', 'success');
-      setLoading(false);
-    })
-    .catch(errors => {
-      if (errors.response) {
-        setErrors(errors.response.data.errors);
+    // request handle with javascrpt fetch
+    fetch(`${process.env.REACT_APP_API_URL}/todos/${params.id}`, { method: 'post', body: data })
+    .then(response => response.text())
+    .then(response => {
+      let data = JSON.parse(response);
+      if (data.errors) {
+        setErrors(data.errors);
       } else {
-        Swal.fire('', 'Something went wrong!', 'error');
+        Swal.fire('', 'Todo Updated Successfully', 'success');
       }
       setLoading(false);
+    })
+    .catch(() => {
+      Swal.fire('', 'Something went wrong!', 'error');
+      setLoading(false);
     });
+
+    // Api.post(`/todos/${params.id}`, data)
+    // .then((response) => {
+    //   Swal.fire('', 'Todo Updated Successfully', 'success');
+    //   setLoading(false);
+    // })
+    // .catch(errors => {
+    //   if (errors.response) {
+    //     setErrors(errors.response.data.errors);
+    //   } else {
+    //     Swal.fire('', 'Something went wrong!', 'error');
+    //   }
+    //   setLoading(false);
+    // });
+
   };
 
   return (
@@ -88,7 +106,7 @@ export default function TodoEdit() {
       <Card className="rounded-0 my-3">
         <Card.Header>
           <Card.Title>
-            <span>New Todo</span>
+            <span>Edit Todo</span>
             <Link to="/todos" className="btn btn-sm btn-primary ms-2">Todo List</Link>
           </Card.Title>
         </Card.Header>

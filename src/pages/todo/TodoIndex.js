@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Loading from "../../components/Loading";
 import { Container, Card, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Api from '../../config/Api';
+// import Api from '../../config/Api';
 import Swal from 'sweetalert2';
 
 export default function TodoIndex() {
@@ -14,11 +14,15 @@ export default function TodoIndex() {
     fetch(`${process.env.REACT_APP_API_URL}/todos`, { method: 'get' })
     .then(response => response.text())
     .then(response => {
-      let { data } = JSON.parse(response);
-      setTodos(data);
+      let data = JSON.parse(response);
+      if (data.errors) {
+        Swal.fire('', 'Something went wrong!', 'error');
+      } else {
+        setTodos(data.data);
+      }
       setLoading(false);
     })
-    .catch(error => {
+    .catch(() => {
       Swal.fire('', 'Something went wrong!', 'error');
       setLoading(false);
     });
@@ -61,17 +65,39 @@ export default function TodoIndex() {
     
             let data = new FormData();
             data.append('_method', 'delete');
-            Api.post(`/todos/${id}`, data)
+
+            // request handle with javascrpt fetch
+            fetch(`${process.env.REACT_APP_API_URL}/todos/${id}`, { method: 'post', body: data })
+            .then(response => response.text())
             .then(response => {
+              let data = JSON.parse(response);
+              if (data.errors) {
+                Swal.fire('', 'Something went wrong!', 'error');
+              } else {
                 let newTodos = todos.filter(todo => todo.id !== id);
                 setTodos(newTodos);
-                setLoading(false);
-    
                 Swal.fire('', 'Todo Deleted Successfully!', 'success');
+              }
+              setLoading(false);
             })
             .catch(() => {
-                Swal.fire('', 'Something went wrong!', 'error');
+              Swal.fire('', 'Something went wrong!', 'error');
+              setLoading(false);
             });
+            
+            // Api.post(`/todos/${id}`, data)
+            // .then(response => {
+            //     let newTodos = todos.filter(todo => todo.id !== id);
+            //     setTodos(newTodos);
+            //     setLoading(false);
+    
+            //     Swal.fire('', 'Todo Deleted Successfully!', 'success');
+            // })
+            // .catch(() => {
+            //     Swal.fire('', 'Something went wrong!', 'error');
+            //     setLoading(false);
+            // });
+
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire('', 'Cancelled', 'error');
         }
