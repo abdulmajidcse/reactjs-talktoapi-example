@@ -22,7 +22,7 @@ export default function TodoEdit() {
         setState({
           title: response.data.data.title,
           note: response.data.data.note,
-          comment: response.data.data.comment,
+          comment: response.data.data.comment ? response.data.data.comment : '',
         });
         setLoading(false);
     })
@@ -69,11 +69,10 @@ export default function TodoEdit() {
 
     // request handle with javascrpt fetch
     fetch(`${process.env.REACT_APP_API_URL}/todos/${params.id}`, { method: 'post', body: data })
-    .then(response => response.text())
+    .then(response => response.json())
     .then(response => {
-      let data = JSON.parse(response);
-      if (data.errors) {
-        setErrors(data.errors);
+      if (response.errors) {
+        setErrors(response.errors);
       } else {
         Swal.fire('', 'Todo Updated Successfully', 'success');
       }

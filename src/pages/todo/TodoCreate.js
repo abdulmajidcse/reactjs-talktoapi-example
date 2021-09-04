@@ -43,11 +43,10 @@ export default function TodoCreate() {
 
     // request handle with javascrpt fetch
     fetch(`${process.env.REACT_APP_API_URL}/todos`, { method: 'post', body: data })
-    .then(response => response.text())
+    .then(response => response.json())
     .then(response => {
-      let data = JSON.parse(response);
-      if (data.errors) {
-        setErrors(data.errors);
+      if (response.errors) {
+        setErrors(response.errors);
       } else {
         Swal.fire('', 'Todo Saved Successfully', 'success');
         setLoading(false);

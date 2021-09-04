@@ -12,13 +12,12 @@ export default function TodoIndex() {
   const getTodos = () => {
     // request handle with javascrpt fetch
     fetch(`${process.env.REACT_APP_API_URL}/todos`, { method: 'get' })
-    .then(response => response.text())
+    .then(response => response.json())
     .then(response => {
-      let data = JSON.parse(response);
-      if (data.errors) {
+      if (response.errors) {
         Swal.fire('', 'Something went wrong!', 'error');
       } else {
-        setTodos(data.data);
+        setTodos(response.data);
       }
       setLoading(false);
     })
@@ -68,10 +67,9 @@ export default function TodoIndex() {
 
             // request handle with javascrpt fetch
             fetch(`${process.env.REACT_APP_API_URL}/todos/${id}`, { method: 'post', body: data })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(response => {
-              let data = JSON.parse(response);
-              if (data.errors) {
+              if (response.errors) {
                 Swal.fire('', 'Something went wrong!', 'error');
               } else {
                 let newTodos = todos.filter(todo => todo.id !== id);
