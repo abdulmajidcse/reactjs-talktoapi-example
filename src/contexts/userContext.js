@@ -7,7 +7,7 @@ export const UserContext = React.createContext({
         authIs: false,
     },
     login: () => {},
-    logout: () => {}
+    logout: () => {},
 });
 
 const USER = { authIs: false, name: 'Guest' };
@@ -15,34 +15,29 @@ const USER = { authIs: false, name: 'Guest' };
 export const UserContextProvider = ({ children }) => {
     const [user, setUser] = useState(USER);
 
-    const login = () => {
-        const token = getToken();
-        if (token) {
-            Api.get(`/user?token=${token}`)
-            .then(({ data: { data } }) => {
-                setUser({authIs: true, ...data});
-            })
-            .catch(() => {
-                logout();
-            });
-        }
-    };
-
     const logout = () => {
         const token = getToken();
         if (token) {
-            Api.post(`/logout?token=${token}`)
-            .then(() => {});
+            Api.post(`/logout?token=${token}`).then(() => {});
         }
         removeToken();
         setUser(USER);
     };
 
-    return (
-        <UserContext.Provider value={{ user, login, logout }}>
-            {children}
-        </UserContext.Provider>
-    );
+    const login = () => {
+        const token = getToken();
+        if (token) {
+            Api.get(`/user?token=${token}`)
+                .then(({ data: { data } }) => {
+                    setUser({ authIs: true, ...data });
+                })
+                .catch(() => {
+                    logout();
+                });
+        }
+    };
+
+    return <UserContext.Provider value={{ user, login, logout }}>{children}</UserContext.Provider>;
 };
 
 export const useUserContext = () => {

@@ -1,17 +1,16 @@
-import { Switch } from "react-router-dom";
-import NotFound from "../components/NotFound";
+import { Switch } from 'react-router-dom';
+import NotFound from '../components/NotFound';
+import Login from '../pages/auth/Login';
+import Register from '../pages/auth/Register';
+import Category from '../pages/Category';
 import Home from '../pages/Home';
-import TodoIndex from "../pages/todo/TodoIndex";
+import Post from '../pages/Post';
 import TodoCreate from '../pages/todo/TodoCreate';
 import TodoEdit from '../pages/todo/TodoEdit';
-import Register from "../pages/auth/Register";
-import Login from '../pages/auth/Login';
-import GuardedRoute from "./guards/GuardedRoute";
-import Post from "../pages/Post";
-import Category from "../pages/Category";
+import TodoIndex from '../pages/todo/TodoIndex';
+import GuardedRoute from './guards/GuardedRoute';
 
 function Router() {
-    
     return (
         <>
             <Switch>

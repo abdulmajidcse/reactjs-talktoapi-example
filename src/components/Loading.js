@@ -1,28 +1,30 @@
-import { Spinner } from "react-bootstrap";
+import { Spinner } from 'react-bootstrap';
 
-function Loading({show = false}) {
-    let style = {
+function Loading({ show = false }) {
+    const style = {
         width: '3rem',
         height: '3rem',
     };
 
-    let loadingStyle = {
+    const loadingStyle = {
         position: 'fixed',
         top: '20%',
         left: '45%',
         zIndex: 99999,
     };
 
-    if(! show) {
+    if (!show) {
         return false;
     }
 
     return (
         <>
             <Spinner animation="border" role="status" style={loadingStyle}>
-                <span className="visually-hidden" style={style}>Loading...</span>
+                <span className="visually-hidden" style={style}>
+                    Loading...
+                </span>
             </Spinner>
-      </>
+        </>
     );
 }
 

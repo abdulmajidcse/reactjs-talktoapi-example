@@ -1,12 +1,11 @@
-import { useState, useCallback, useEffect } from "react";
-import Api from "../config/Api";
+import { useCallback, useEffect, useState } from 'react';
+import Api from '../config/Api';
 
 export default function useGetTodo(todoId) {
-    let [todo, setTodo] = useState({});
+    const [todo, setTodo] = useState({});
 
     const getTodo = useCallback(() => {
-        Api.get(`todos/${todoId}`)
-        .then(response => {
+        Api.get(`todos/${todoId}`).then((response) => {
             setTodo(response.data.data);
         });
     }, [todoId]);
