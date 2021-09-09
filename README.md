@@ -1,4 +1,4 @@
-## About NextJS-Todo-App
+## About ReactJS-TalkToAPI-Example
 
 An Example App of TalktoAPI. It's developed with ReactJS. Here you can see ap features.
 - Todo App
